@@ -3,24 +3,20 @@ package com.mangkyu.expense;
 import static com.mangkyu.expense.Expense.Type.BREAKFAST;
 import static com.mangkyu.expense.Expense.Type.DINNER;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class ExpenseReport {
-    private List<Expense> expenses = new ArrayList<>();
-    private int total;
-    private int mealExpenses;
+
+    private final ExpenseReporter expenseReporter = new ExpenseReporter();
 
     public void printReport(ReportPrinter printer) {
-        calculateExpenses();
+        expenseReporter.calculateExpenses();
         printHeader(printer);
         printExpenses(printer);
         printTotal(printer);
     }
 
     private void printExpenses(ReportPrinter printer) {
-        for (Expense expense : expenses) {
+        for (Expense expense : expenseReporter.expenses) {
             printer.print(String.format("%s\t%s\t$%.02f\n",
                     ((expense.type == DINNER && expense.amount > 5000)
                             || (expense.type == BREAKFAST && expense.amount > 1000)) ? "X" : " ",
@@ -33,8 +29,8 @@ public class ExpenseReport {
     }
 
     private void printTotal(ReportPrinter printer) {
-        printer.print(String.format("\nMeal expenses $%.02f", toDollars(mealExpenses)));
-        printer.print(String.format("\nTotal $%.02f", toDollars(total)));
+        printer.print(String.format("\nMeal expenses $%.02f", toDollars(expenseReporter.mealExpenses)));
+        printer.print(String.format("\nTotal $%.02f", toDollars(expenseReporter.total)));
     }
 
     private String toExpenseName(Expense expense) {
@@ -58,24 +54,20 @@ public class ExpenseReport {
     }
 
     private void calculateExpenses() {
-        for (Expense expense : expenses) {
-            calculateExpense(expense);
-        }
+        expenseReporter.calculateExpenses();
     }
 
     private void calculateExpense(Expense expense) {
-        if (isMeal(expense))
-            mealExpenses += expense.amount;
 
-        total += expense.amount;
+        expenseReporter.calculateExpense(expense);
     }
 
     private boolean isMeal(Expense expense) {
-        return expense.type == BREAKFAST || expense.type == DINNER;
+        return expenseReporter.isMeal(expense);
     }
 
     public void addExpense(Expense expense) {
-        expenses.add(expense);
+        expenseReporter.addExpense(expense);
     }
 
     private String getDate() {
