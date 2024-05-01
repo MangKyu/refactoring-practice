@@ -24,24 +24,28 @@ public final class TestableHtmlBuilder {
     }
 
     String buildHtml() throws Exception {
-
         if (pageData().hasAttribute("Test")) {
-            if (includeSuiteSetup()) {
-                includeInheritedPage(SuiteResponder.SUITE_SETUP_NAME, "setup");
-            }
-            includeInheritedPage("SetUp", "setup");
-        }
-
-        buffer.append(pageData().getContent());
-        if (pageData().hasAttribute("Test")) {
-            includeInheritedPage("TearDown", "teardown");
-            if (includeSuiteSetup()) {
-                includeInheritedPage(SuiteResponder.SUITE_TEARDOWN_NAME, "teardown");
-            }
+            includeSetup();
+            buffer.append(pageData().getContent());
+            includeTeardown();
         }
 
         pageData().setContent(buffer.toString());
         return pageData().getHtml();
+    }
+
+    private void includeSetup() throws Exception {
+        if (includeSuiteSetup()) {
+            includeInheritedPage(SuiteResponder.SUITE_SETUP_NAME, "setup");
+        }
+        includeInheritedPage("SetUp", "setup");
+    }
+
+    private void includeTeardown() throws Exception {
+        includeInheritedPage("TearDown", "teardown");
+        if (includeSuiteSetup()) {
+            includeInheritedPage(SuiteResponder.SUITE_TEARDOWN_NAME, "teardown");
+        }
     }
 
     private void includeInheritedPage(String TearDown, String teardownMode) throws Exception {
