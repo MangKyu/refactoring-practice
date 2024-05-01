@@ -1,5 +1,7 @@
 package com.mangkyu.fitness;
 
+import java.util.Objects;
+
 import fitnesse.responders.run.SuiteResponder;
 import fitnesse.wiki.PageCrawlerImpl;
 import fitnesse.wiki.PageData;
@@ -7,7 +9,15 @@ import fitnesse.wiki.PathParser;
 import fitnesse.wiki.WikiPage;
 import fitnesse.wiki.WikiPagePath;
 
-public record TestableHtmlBuilder(PageData pageData, boolean includeSuiteSetup) {
+public final class TestableHtmlBuilder {
+
+    private final PageData pageData;
+    private final boolean includeSuiteSetup;
+
+    public TestableHtmlBuilder(PageData pageData, boolean includeSuiteSetup) {
+        this.pageData = pageData;
+        this.includeSuiteSetup = includeSuiteSetup;
+    }
 
     String buildHtml() throws Exception {
         WikiPage wikiPage = pageData().getWikiPage();
@@ -51,4 +61,38 @@ public record TestableHtmlBuilder(PageData pageData, boolean includeSuiteSetup) 
         pageData().setContent(buffer.toString());
         return pageData().getHtml();
     }
+
+    public PageData pageData() {
+        return pageData;
+    }
+
+    public boolean includeSuiteSetup() {
+        return includeSuiteSetup;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+        var that = (TestableHtmlBuilder) obj;
+        return Objects.equals(this.pageData, that.pageData) &&
+            this.includeSuiteSetup == that.includeSuiteSetup;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pageData, includeSuiteSetup);
+    }
+
+    @Override
+    public String toString() {
+        return "TestableHtmlBuilder[" +
+            "pageData=" + pageData + ", " +
+            "includeSuiteSetup=" + includeSuiteSetup + ']';
+    }
+
 }
