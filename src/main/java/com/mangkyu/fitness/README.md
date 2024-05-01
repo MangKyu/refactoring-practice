@@ -1,4 +1,4 @@
-# Expense Refactoring
+# Fitness Refactoring
 해당 프로젝트는 인텔레지에의 단축키를 연습하기 위한 프로젝트입니다.
 해당 프로젝트는 기본적으로 백명석님의 유튜브 [클린코더스](https://www.youtube.com/playlist?list=PLeQ0NTYUDTmMM71Jn1scbEYdLFHz5ZqFA)를 참고하여 작성되었습니다.
 
