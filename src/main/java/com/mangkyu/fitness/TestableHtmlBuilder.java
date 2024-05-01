@@ -19,7 +19,7 @@ public final class TestableHtmlBuilder {
     public TestableHtmlBuilder(PageData pageData, boolean includeSuiteSetup) {
         this.pageData = pageData;
         this.includeSuiteSetup = includeSuiteSetup;
-        wikiPage = pageData().getWikiPage();
+        wikiPage = this.pageData.getWikiPage();
         buffer = new StringBuffer();
     }
 
@@ -30,16 +30,16 @@ public final class TestableHtmlBuilder {
             includeTeardown();
         }
 
-        pageData().setContent(buffer.toString());
-        return pageData().getHtml();
+        pageData.setContent(buffer.toString());
+        return pageData.getHtml();
     }
 
     private void includeContent() throws Exception {
-        buffer.append(pageData().getContent());
+        buffer.append(pageData.getContent());
     }
 
     private boolean isTestPage() throws Exception {
-        return pageData().hasAttribute("Test");
+        return pageData.hasAttribute("Test");
     }
 
     private void includeSetup() throws Exception {
@@ -67,10 +67,6 @@ public final class TestableHtmlBuilder {
         WikiPagePath tearDownPath = wikiPage.getPageCrawler().getFullPath(teardown);
         String tearDownPathName = PathParser.render(tearDownPath);
         buffer.append("!include -" + teardownMode + " .").append(tearDownPathName).append("\n");
-    }
-
-    public PageData pageData() {
-        return pageData;
     }
 
     public boolean includeSuiteSetup() {
