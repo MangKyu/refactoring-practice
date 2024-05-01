@@ -28,34 +28,29 @@ public final class TestableHtmlBuilder {
         if (pageData().hasAttribute("Test")) {
             String setupMode = "setup";
             if (includeSuiteSetup()) {
-                WikiPage suiteSetup = PageCrawlerImpl.getInheritedPage(SuiteResponder.SUITE_SETUP_NAME, wikiPage);
-                if (suiteSetup != null) {
-                    includePage(suiteSetup, setupMode);
-                }
+                includeInheritedPage(SuiteResponder.SUITE_SETUP_NAME, setupMode);
             }
-            WikiPage setup = PageCrawlerImpl.getInheritedPage("SetUp", wikiPage);
-            if (setup != null) {
-                includePage(setup, setupMode);
-            }
+            includeInheritedPage("SetUp", setupMode);
         }
 
         buffer.append(pageData().getContent());
         if (pageData().hasAttribute("Test")) {
             String teardownMode = "teardown";
-            WikiPage teardown = PageCrawlerImpl.getInheritedPage("TearDown", wikiPage);
-            if (teardown != null) {
-                includePage(teardown, teardownMode);
-            }
+            includeInheritedPage("TearDown", teardownMode);
             if (includeSuiteSetup()) {
-                WikiPage suiteTeardown = PageCrawlerImpl.getInheritedPage(SuiteResponder.SUITE_TEARDOWN_NAME, wikiPage);
-                if (suiteTeardown != null) {
-                    includePage(suiteTeardown, teardownMode);
-                }
+                includeInheritedPage(SuiteResponder.SUITE_TEARDOWN_NAME, teardownMode);
             }
         }
 
         pageData().setContent(buffer.toString());
         return pageData().getHtml();
+    }
+
+    private void includeInheritedPage(String TearDown, String teardownMode) throws Exception {
+        WikiPage teardown = PageCrawlerImpl.getInheritedPage(TearDown, wikiPage);
+        if (teardown != null) {
+            includePage(teardown, teardownMode);
+        }
     }
 
     private void includePage(WikiPage teardown, String teardownMode) throws Exception {
