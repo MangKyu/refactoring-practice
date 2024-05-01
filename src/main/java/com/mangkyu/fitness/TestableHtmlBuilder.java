@@ -26,19 +26,17 @@ public final class TestableHtmlBuilder {
     String buildHtml() throws Exception {
 
         if (pageData().hasAttribute("Test")) {
-            String setupMode = "setup";
             if (includeSuiteSetup()) {
-                includeInheritedPage(SuiteResponder.SUITE_SETUP_NAME, setupMode);
+                includeInheritedPage(SuiteResponder.SUITE_SETUP_NAME, "setup");
             }
-            includeInheritedPage("SetUp", setupMode);
+            includeInheritedPage("SetUp", "setup");
         }
 
         buffer.append(pageData().getContent());
         if (pageData().hasAttribute("Test")) {
-            String teardownMode = "teardown";
-            includeInheritedPage("TearDown", teardownMode);
+            includeInheritedPage("TearDown", "teardown");
             if (includeSuiteSetup()) {
-                includeInheritedPage(SuiteResponder.SUITE_TEARDOWN_NAME, teardownMode);
+                includeInheritedPage(SuiteResponder.SUITE_TEARDOWN_NAME, "teardown");
             }
         }
 
