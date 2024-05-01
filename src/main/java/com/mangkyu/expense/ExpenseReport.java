@@ -9,11 +9,10 @@ import java.util.List;
 
 public class ExpenseReport {
     private List<Expense> expenses = new ArrayList<>();
+    private int total;
+    private int mealExpenses;
 
     public void printReport(ReportPrinter printer) {
-        int total = 0;
-        int mealExpenses = 0;
-
         printer.print("Expenses " + getDate() + "\n");
 
         for (Expense expense : expenses) {
