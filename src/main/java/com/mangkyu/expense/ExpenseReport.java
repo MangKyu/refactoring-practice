@@ -13,31 +13,44 @@ public class ExpenseReport {
     private int mealExpenses;
 
     public void printReport(ReportPrinter printer) {
-        printer.print("Expenses " + getDate() + "\n");
-
         calculateExpenses();
+        printHeader(printer);
+        printExpenses(printer);
+        printTotal(printer);
+    }
 
+    private void printExpenses(ReportPrinter printer) {
         for (Expense expense : expenses) {
-            String name = "TILT";
-            switch (expense.type) {
-                case DINNER:
-                    name = "Dinner";
-                    break;
-                case BREAKFAST:
-                    name = "Breakfast";
-                    break;
-                case CAR_RENTAL:
-                    name = "Car Rental";
-                    break;
-            }
             printer.print(String.format("%s\t%s\t$%.02f\n",
                     ((expense.type == DINNER && expense.amount > 5000)
                             || (expense.type == BREAKFAST && expense.amount > 1000)) ? "X" : " ",
-                    name, toDollars(expense.amount)));
+                toExpenseName(expense), toDollars(expense.amount)));
         }
+    }
 
+    private void printHeader(ReportPrinter printer) {
+        printer.print("Expenses " + getDate() + "\n");
+    }
+
+    private void printTotal(ReportPrinter printer) {
         printer.print(String.format("\nMeal expenses $%.02f", toDollars(mealExpenses)));
         printer.print(String.format("\nTotal $%.02f", toDollars(total)));
+    }
+
+    private String toExpenseName(Expense expense) {
+        String name = "TILT";
+        switch (expense.type) {
+            case DINNER:
+                name = "Dinner";
+                break;
+            case BREAKFAST:
+                name = "Breakfast";
+                break;
+            case CAR_RENTAL:
+                name = "Car Rental";
+                break;
+        }
+        return name;
     }
 
     private static double toDollars(int amount) {
