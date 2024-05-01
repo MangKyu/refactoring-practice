@@ -20,7 +20,7 @@ public class ExpenseReport {
             printer.print(String.format("%s\t%s\t$%.02f\n",
                     ((expense.type == DINNER && expense.amount > 5000)
                             || (expense.type == BREAKFAST && expense.amount > 1000)) ? "X" : " ",
-                toExpenseName(expense), toDollars(expense.amount)));
+                expense.toExpenseName(), toDollars(expense.amount)));
         }
     }
 
@@ -31,22 +31,6 @@ public class ExpenseReport {
     private void printTotal(ReportPrinter printer) {
         printer.print(String.format("\nMeal expenses $%.02f", toDollars(expenseReporter.mealExpenses)));
         printer.print(String.format("\nTotal $%.02f", toDollars(expenseReporter.total)));
-    }
-
-    private String toExpenseName(Expense expense) {
-        String name = "TILT";
-        switch (expense.type) {
-            case DINNER:
-                name = "Dinner";
-                break;
-            case BREAKFAST:
-                name = "Breakfast";
-                break;
-            case CAR_RENTAL:
-                name = "Car Rental";
-                break;
-        }
-        return name;
     }
 
     private static double toDollars(int amount) {

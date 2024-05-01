@@ -1,8 +1,5 @@
 package com.mangkyu.expense;
 
-import static com.mangkyu.expense.Expense.Type.BREAKFAST;
-import static com.mangkyu.expense.Expense.Type.DINNER;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,15 +19,11 @@ public class ExpenseReporter {
     }
 
     void calculateExpense(Expense expense) {
-        if (isMeal(expense)) {
+        if (expense.isMeal()) {
             mealExpenses += expense.amount;
         }
 
         total += expense.amount;
-    }
-
-    boolean isMeal(Expense expense) {
-        return expense.type == BREAKFAST || expense.type == DINNER;
     }
 
     public void addExpense(Expense expense) {
