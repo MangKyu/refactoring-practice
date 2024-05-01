@@ -108,7 +108,7 @@ class FitnessExampleTest {
     }
 
     private void generateHtmlAndAssert(boolean includeSuiteSetup, String expectedResult) throws Exception {
-        String testableHtml = new FitnessExample().testableHtml(pageData, includeSuiteSetup);
+        String testableHtml = new FitnessExample().testableHtml(new TestableHtmlBuilder(pageData, includeSuiteSetup));
         assertThat(removeMagicNumber(testableHtml)).isEqualTo(removeMagicNumber(expectedResult));
     }
 }

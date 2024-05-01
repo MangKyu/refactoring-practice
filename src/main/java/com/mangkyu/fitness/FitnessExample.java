@@ -4,12 +4,12 @@ import fitnesse.responders.run.SuiteResponder;
 import fitnesse.wiki.*;
 
 public class FitnessExample {
-    public String testableHtml(PageData pageData, boolean includeSuiteSetup) throws Exception {
-        WikiPage wikiPage = pageData.getWikiPage();
+    public String testableHtml(TestableHtmlBuilder testableHtmlBuilder) throws Exception {
+        WikiPage wikiPage = testableHtmlBuilder.pageData().getWikiPage();
         StringBuffer buffer = new StringBuffer();
 
-        if (pageData.hasAttribute("Test")) {
-            if (includeSuiteSetup) {
+        if (testableHtmlBuilder.pageData().hasAttribute("Test")) {
+            if (testableHtmlBuilder.includeSuiteSetup()) {
                 WikiPage suiteSetup = PageCrawlerImpl.getInheritedPage(SuiteResponder.SUITE_SETUP_NAME, wikiPage);
                 if (suiteSetup != null) {
                     WikiPagePath pagePath = wikiPage.getPageCrawler().getFullPath(suiteSetup);
@@ -25,15 +25,15 @@ public class FitnessExample {
             }
         }
 
-        buffer.append(pageData.getContent());
-        if (pageData.hasAttribute("Test")) {
+        buffer.append(testableHtmlBuilder.pageData().getContent());
+        if (testableHtmlBuilder.pageData().hasAttribute("Test")) {
             WikiPage teardown = PageCrawlerImpl.getInheritedPage("TearDown", wikiPage);
             if (teardown != null) {
                 WikiPagePath tearDownPath = wikiPage.getPageCrawler().getFullPath(teardown);
                 String tearDownPathName = PathParser.render(tearDownPath);
                 buffer.append("!include -teardown .").append(tearDownPathName).append("\n");
             }
-            if (includeSuiteSetup) {
+            if (testableHtmlBuilder.includeSuiteSetup()) {
                 WikiPage suiteTeardown = PageCrawlerImpl.getInheritedPage(SuiteResponder.SUITE_TEARDOWN_NAME, wikiPage);
                 if (suiteTeardown != null) {
                     WikiPagePath pagePath = wikiPage.getPageCrawler().getFullPath(suiteTeardown);
@@ -43,7 +43,7 @@ public class FitnessExample {
             }
         }
 
-        pageData.setContent(buffer.toString());
-        return pageData.getHtml();
+        testableHtmlBuilder.pageData().setContent(buffer.toString());
+        return testableHtmlBuilder.pageData().getHtml();
     }
 }
