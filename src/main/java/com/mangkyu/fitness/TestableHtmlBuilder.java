@@ -13,15 +13,17 @@ public final class TestableHtmlBuilder {
 
     private final PageData pageData;
     private final boolean includeSuiteSetup;
+    private final WikiPage wikiPage;
+    private final StringBuffer buffer;
 
     public TestableHtmlBuilder(PageData pageData, boolean includeSuiteSetup) {
         this.pageData = pageData;
         this.includeSuiteSetup = includeSuiteSetup;
+        wikiPage = pageData().getWikiPage();
+        buffer = new StringBuffer();
     }
 
     String buildHtml() throws Exception {
-        WikiPage wikiPage = pageData().getWikiPage();
-        StringBuffer buffer = new StringBuffer();
 
         if (pageData().hasAttribute("Test")) {
             if (includeSuiteSetup()) {
