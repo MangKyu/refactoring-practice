@@ -3,7 +3,7 @@ package com.mangkyu.expense;
 import static com.mangkyu.expense.Expense.Type.BREAKFAST;
 import static com.mangkyu.expense.Expense.Type.DINNER;
 
-public class Expense {
+abstract class Expense {
 
     String toExpenseName() {
         String name = "TILT";

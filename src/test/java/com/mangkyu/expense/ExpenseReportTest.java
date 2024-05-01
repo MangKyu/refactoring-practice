@@ -32,7 +32,7 @@ class ExpenseReportTest {
 
     @Test
     void printOneDinner() {
-        report.addExpense(new Expense(DINNER, 1678));
+        report.addExpense(new DinnerExpense(DINNER, 1678));
         report.printReport(printer);
 
         assertThat(printer.getText()).isEqualTo("Expenses 9/12/2002\n" +
@@ -44,8 +44,8 @@ class ExpenseReportTest {
 
     @Test
     void twoMeals() {
-        report.addExpense(new Expense(DINNER, 1000));
-        report.addExpense(new Expense(BREAKFAST, 500));
+        report.addExpense(new DinnerExpense(DINNER, 1000));
+        report.addExpense(new BreakfastExpense(BREAKFAST, 500));
         report.printReport(printer);
 
         assertThat(printer.getText()).isEqualTo( "Expenses 9/12/2002\n" +
@@ -59,9 +59,9 @@ class ExpenseReportTest {
 
     @Test
     void twoMealsAndCarRental() {
-        report.addExpense(new Expense(DINNER, 1000));
-        report.addExpense(new Expense(BREAKFAST, 500));
-        report.addExpense(new Expense(CAR_RENTAL, 50000));
+        report.addExpense(new DinnerExpense(DINNER, 1000));
+        report.addExpense(new BreakfastExpense(BREAKFAST, 500));
+        report.addExpense(new CarRentalExpense(CAR_RENTAL, 50000));
         report.printReport(printer);
 
         assertThat(printer.getText()).isEqualTo("Expenses 9/12/2002\n" +
@@ -75,10 +75,10 @@ class ExpenseReportTest {
 
     @Test
     void overages() {
-        report.addExpense(new Expense(BREAKFAST, 1000));
-        report.addExpense(new Expense(BREAKFAST, 1001));
-        report.addExpense(new Expense(DINNER, 5000));
-        report.addExpense(new Expense(DINNER, 5001));
+        report.addExpense(new BreakfastExpense(BREAKFAST, 1000));
+        report.addExpense(new BreakfastExpense(BREAKFAST, 1001));
+        report.addExpense(new DinnerExpense(DINNER, 5000));
+        report.addExpense(new DinnerExpense(DINNER, 5001));
         report.printReport(printer);
 
         assertThat(printer.getText()).isEqualTo("Expenses 9/12/2002\n" +
