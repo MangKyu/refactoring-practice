@@ -1,8 +1,10 @@
 package com.mangkyu.expense;
 
+import static com.mangkyu.expense.Expense.Type.BREAKFAST;
+
 public class BreakfastExpense extends Expense {
 
-    public BreakfastExpense(Type type, int amount) {
-        super(type, amount);
+    public BreakfastExpense(int amount) {
+        super(BREAKFAST, amount);
     }
 }

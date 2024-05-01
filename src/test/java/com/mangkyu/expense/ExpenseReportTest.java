@@ -1,8 +1,5 @@
 package com.mangkyu.expense;
 
-import static com.mangkyu.expense.Expense.Type.BREAKFAST;
-import static com.mangkyu.expense.Expense.Type.DINNER;
-import static com.mangkyu.expense.Expense.Type.CAR_RENTAL;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -32,7 +29,7 @@ class ExpenseReportTest {
 
     @Test
     void printOneDinner() {
-        report.addExpense(new DinnerExpense(DINNER, 1678));
+        report.addExpense(new DinnerExpense(1678));
         report.printReport(printer);
 
         assertThat(printer.getText()).isEqualTo("Expenses 9/12/2002\n" +
@@ -44,8 +41,8 @@ class ExpenseReportTest {
 
     @Test
     void twoMeals() {
-        report.addExpense(new DinnerExpense(DINNER, 1000));
-        report.addExpense(new BreakfastExpense(BREAKFAST, 500));
+        report.addExpense(new DinnerExpense(1000));
+        report.addExpense(new BreakfastExpense(500));
         report.printReport(printer);
 
         assertThat(printer.getText()).isEqualTo( "Expenses 9/12/2002\n" +
@@ -59,9 +56,9 @@ class ExpenseReportTest {
 
     @Test
     void twoMealsAndCarRental() {
-        report.addExpense(new DinnerExpense(DINNER, 1000));
-        report.addExpense(new BreakfastExpense(BREAKFAST, 500));
-        report.addExpense(new CarRentalExpense(CAR_RENTAL, 50000));
+        report.addExpense(new DinnerExpense(1000));
+        report.addExpense(new BreakfastExpense(500));
+        report.addExpense(new CarRentalExpense(50000));
         report.printReport(printer);
 
         assertThat(printer.getText()).isEqualTo("Expenses 9/12/2002\n" +
@@ -75,10 +72,10 @@ class ExpenseReportTest {
 
     @Test
     void overages() {
-        report.addExpense(new BreakfastExpense(BREAKFAST, 1000));
-        report.addExpense(new BreakfastExpense(BREAKFAST, 1001));
-        report.addExpense(new DinnerExpense(DINNER, 5000));
-        report.addExpense(new DinnerExpense(DINNER, 5001));
+        report.addExpense(new BreakfastExpense(1000));
+        report.addExpense(new BreakfastExpense(1001));
+        report.addExpense(new DinnerExpense(5000));
+        report.addExpense(new DinnerExpense(5001));
         report.printReport(printer);
 
         assertThat(printer.getText()).isEqualTo("Expenses 9/12/2002\n" +
