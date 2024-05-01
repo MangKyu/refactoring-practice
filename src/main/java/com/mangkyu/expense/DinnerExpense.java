@@ -1,17 +1,16 @@
 package com.mangkyu.expense;
 
-import static com.mangkyu.expense.Expense.Type.BREAKFAST;
 import static com.mangkyu.expense.Expense.Type.DINNER;
 
-public class BreakfastExpense extends Expense {
+public class DinnerExpense extends Expense {
 
-    public BreakfastExpense(int amount) {
-        super(BREAKFAST, amount);
+    public DinnerExpense(int amount) {
+        super(DINNER, amount);
     }
 
     @Override
     String toExpenseName() {
-        return "Breakfast";
+        return "Dinner";
     }
 
     @Override
