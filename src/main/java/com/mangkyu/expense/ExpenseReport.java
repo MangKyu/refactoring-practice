@@ -53,19 +53,6 @@ public class ExpenseReport {
         return amount / 100.0;
     }
 
-    private void calculateExpenses() {
-        expenseReporter.calculateExpenses();
-    }
-
-    private void calculateExpense(Expense expense) {
-
-        expenseReporter.calculateExpense(expense);
-    }
-
-    private boolean isMeal(Expense expense) {
-        return expenseReporter.isMeal(expense);
-    }
-
     public void addExpense(Expense expense) {
         expenseReporter.addExpense(expense);
     }

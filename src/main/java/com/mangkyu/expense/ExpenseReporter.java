@@ -1,11 +1,14 @@
 package com.mangkyu.expense;
 
+import static com.mangkyu.expense.Expense.Type.BREAKFAST;
+import static com.mangkyu.expense.Expense.Type.DINNER;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ExpenseReporter {
 
-    List<Expense> expenses = new ArrayList<Expense>();
+    List<Expense> expenses = new ArrayList<>();
     int total;
     int mealExpenses;
 
