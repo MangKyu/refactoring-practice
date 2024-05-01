@@ -5,6 +5,10 @@ import fitnesse.wiki.*;
 
 public class FitnessExample {
     public String testableHtml(TestableHtmlBuilder testableHtmlBuilder) throws Exception {
+        return buildHtml(testableHtmlBuilder);
+    }
+
+    private String buildHtml(TestableHtmlBuilder testableHtmlBuilder) throws Exception {
         WikiPage wikiPage = testableHtmlBuilder.pageData().getWikiPage();
         StringBuffer buffer = new StringBuffer();
 
