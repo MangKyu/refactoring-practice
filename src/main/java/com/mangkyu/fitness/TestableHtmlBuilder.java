@@ -41,8 +41,8 @@ public final class TestableHtmlBuilder {
 
         buffer.append(pageData().getContent());
         if (pageData().hasAttribute("Test")) {
-            WikiPage teardown = PageCrawlerImpl.getInheritedPage("TearDown", wikiPage);
             String teardownMode = "teardown";
+            WikiPage teardown = PageCrawlerImpl.getInheritedPage("TearDown", wikiPage);
             if (teardown != null) {
                 includePage(teardown, teardownMode);
             }
