@@ -24,14 +24,22 @@ public final class TestableHtmlBuilder {
     }
 
     String buildHtml() throws Exception {
-        if (pageData().hasAttribute("Test")) {
+        if (isTestPage()) {
             includeSetup();
-            buffer.append(pageData().getContent());
+            includeContent();
             includeTeardown();
         }
 
         pageData().setContent(buffer.toString());
         return pageData().getHtml();
+    }
+
+    private void includeContent() throws Exception {
+        buffer.append(pageData().getContent());
+    }
+
+    private boolean isTestPage() throws Exception {
+        return pageData().hasAttribute("Test");
     }
 
     private void includeSetup() throws Exception {
